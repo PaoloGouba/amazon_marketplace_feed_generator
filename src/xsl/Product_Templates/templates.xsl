@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-    <xsl:import href="ProductData.xsl"/>
+    <xsl:import href="../ProductData/universes.xsl"/>
     <xsl:output method="xml" indent="yes"/>
     <xsl:param name="ExternalMerchantId" select="'ExternalMerchantId[Required]'"/>
     
@@ -19,13 +19,15 @@
     
     
     <!-- Message info -->
-    <xsl:template name="Message_Info">
+    <xsl:template name="message_Info">
+    <xsl:param name="Delete_product"/>
+    <xsl:param name="Partial_update"/>
         <MessageID><xsl:number value="position()" format="1" /></MessageID>
         <xsl:choose>
-            <xsl:when test="Delete_product = 'True'">
+            <xsl:when test="./*[name() = $Delete_product] = 'True'">
                 <OperationType>Delete</OperationType> 
             </xsl:when>
-            <xsl:when test="Partial_update = 'True'">
+            <xsl:when test="./*[name() = $Partial_update] = 'True'">
                 <OperationType>PartialUpdate</OperationType> 
             </xsl:when>
             <xsl:otherwise>
@@ -35,35 +37,49 @@
     </xsl:template>
     
     
-    <!-- Product : Identification -->
-    <xsl:template name="Identification">
-        
-    </xsl:template>
-    
-    <!-- Product : DescriptionData -->
-    <xsl:template name="DescriptionData">
-        
-    </xsl:template>
-    
-    <!-- Product : ProductData -->
-    <xsl:template name="ProductData">
+    <!-- Product.xsd : Identification -->
+    <xsl:template name="amzon_generic_fields">
+    <xsl:param name="sku"/>  
+    <xsl:param name="parentage"/>
+    <xsl:param name="ean"/>
+    <xsl:param name="isbn"/>
+    <xsl:param name="asin"/>
 
-        <xsl:call-template name="ProductData_Template">
-        <xsl:with-param name="case_xsl" select="case_xsl"/>
+
+        
+        <SKU><xsl:value-of select="./*[name() = $sku]"/></SKU>
+        
+        <xsl:if test="./*[name() = $parentage] !='parent' and (string-length(./*[name() = $ean]) &gt; 0 or string-length(./*[name() = $isbn]) &gt; 0 or string-length(./*[name() = $asin]) &gt; 0)">
             
-        </xsl:call-template>
+            <StandardProductID>  
+                <xsl:choose>
+                    
+                    <xsl:when test="string-length(./*[name() = $asin]) &gt; 0">
+                        <Type>ASIN</Type>
+                        <Value><xsl:value-of select="./*[name() = $asin]"/></Value>
+                    </xsl:when>
+                    
+                    <xsl:when test="string-length(./*[name() = $ean]) &gt; 0">
+                        <Type>EAN</Type>
+                        <Value><xsl:value-of select="./*[name() = $ean]"/></Value>
+                    </xsl:when>
+                    
+                    <xsl:when test="string-length(./*[name() = $isbn]) &gt; 0">
+                        <Type>ISBN</Type>
+                        <Value><xsl:value-of select="./*[name() = $isbn]"/></Value>
+                    </xsl:when>
+                    
+                </xsl:choose>
+            </StandardProductID>
+        </xsl:if>
         
     </xsl:template>
     
     
     
-    <!-- Product : ProductData_Fields -->
-    <xsl:template name="ProductData_Fields">
-        
-    </xsl:template>
     
     
-
+    
     <xsl:template name="simple_field">
         <xsl:param name ="input_node_name"/>
         <xsl:param name ="output_node_name"/>

@@ -1,159 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:import href="Product_Templates/templates.xsl"/>
+  <xsl:import href="Product_Templates/DescriptionData.xsl"/>
   <xsl:output method="xml" indent="yes"/>
   <xsl:param name="ExternalMerchantId" select="'ExternalMerchantId[Required]'"/>
   
   <xsl:template match="/">
-
-
-  
+    
+    
+    
     <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
       
-      <!-- Header  
-      <Header>
-        <DocumentVersion>1.01</DocumentVersion>
-        <MerchantIdentifier>
-          <xsl:value-of select="$ExternalMerchantId"/>
-        </MerchantIdentifier>
-      </Header>
-      
-      <MessageType>Product</MessageType>
-      -->
-
-      <xsl:call-template name="Header">
-        
+      <!-- Header -->
+      <xsl:call-template name="Header">       
       </xsl:call-template>
       
       <xsl:for-each select="catalogue/product">
-
+        
+        
+        <!-- Message -->
         
         <Message>
-
-
-          <!-- Message info 
-
-          <MessageID><xsl:number value="position()" format="1" /></MessageID>
-          <xsl:choose>
-            <xsl:when test="Delete_product = 'True'">
-              <OperationType>Delete</OperationType> 
-            </xsl:when>
-            <xsl:when test="Partial_update = 'True'">
-              <OperationType>PartialUpdate</OperationType> 
-            </xsl:when>
-            <xsl:otherwise>
-              <OperationType>Update</OperationType> 
-            </xsl:otherwise>
-          </xsl:choose>
-          -->
-
-          <xsl:call-template name="Message_Info">
-            
+          
+          
+          <xsl:call-template name="message_Info">
+            <xsl:with-param name="Delete_product" select="'Delete_product'"/>
+            <xsl:with-param name="Partial_update" select="'Partial_update'"/>
           </xsl:call-template>
-
           
           
           <Product>
-
-            <!-- ID info 
-            <SKU><xsl:value-of select="SKU"/></SKU>
             
-            <xsl:if test="Parentage!='parent' and (string-length(EAN) &gt; 0 or string-length(ISBN) &gt; 0 or string-length(ASIN) &gt; 0)">
-              
-              <StandardProductID>  
-                <xsl:choose>
-                  
-                  <xsl:when test="string-length(ASIN) &gt; 0">
-                    <Type>ASIN</Type>
-                    <Value><xsl:value-of select="ASIN"/></Value>
-                  </xsl:when>
-                  
-                  <xsl:when test="string-length(EAN) &gt; 0">
-                    <Type>EAN</Type>
-                    <Value><xsl:value-of select="EAN"/></Value>
-                  </xsl:when>
-                  
-                  <xsl:when test="string-length(ISBN) &gt; 0">
-                    <Type>ISBN</Type>
-                    <Value><xsl:value-of select="ISBN"/></Value>
-                  </xsl:when>
-                  
-                </xsl:choose>
-              </StandardProductID>
-            </xsl:if>
-            -->
-
-            <xsl:call-template name="Identification">
-              
+            
+            <xsl:call-template name="amzon_generic_fields">
+              <xsl:with-param name="sku" select="'SKU'"/>
+              <xsl:with-param name="asin" select="'ASIN'"/>
+              <xsl:with-param name="ean" select="'EAN'"/>
+              <xsl:with-param name="isbn" select="'ISBN'"/>
+              <xsl:with-param name="parentage" select="'Parentage'"/>
             </xsl:call-template>
+            
             
             <xsl:if test="(string-length(ASIN) != 0 and Details_on_if_ASIN = 'True') or (string-length(ASIN) = 0)">
               <!-- Condition
-              <xsl:if test="string-length(Condition) &gt; 0"> 
-                <Condition>
-                  
-                  <ConditionType>
-                    <xsl:value-of select="Condition"/>
-                  </ConditionType>
-                  
-                  <xsl:if test="string-length(ConditionNote) &gt; 0">
-                    <ConditionNote>
-                      <xsl:value-of select="ConditionNote"/>
-                    </ConditionNote>
-                  </xsl:if>
-                  
-                </Condition>
-              </xsl:if>
+                   <xsl:if test="string-length(Condition) &gt; 0"> 
+                   <Condition>
+                   
+                   <ConditionType>
+                   <xsl:value-of select="Condition"/>
+                   </ConditionType>
+                   
+                   <xsl:if test="string-length(ConditionNote) &gt; 0">
+                   <ConditionNote>
+                   <xsl:value-of select="ConditionNote"/>
+                   </ConditionNote>
+                   </xsl:if>
+                   
+                   </Condition>
+                   </xsl:if>
               -->
-
-              <!--
-              <DescriptionData>
-                <Title><xsl:value-of select="Title"/></Title>
-                <xsl:if test="string-length(Brand) &gt; 0"><Brand><xsl:value-of select="Brand"/></Brand></xsl:if>
-                <xsl:if test="string-length(Designer) &gt; 0"><Designer><xsl:value-of select="Designer"/></Designer></xsl:if>
-                <Description><xsl:value-of select="Description"/></Description>
-                <xsl:if test="string-length(BulletPoint1) &gt; 0"> <BulletPoint><xsl:value-of select="BulletPoint1"/></BulletPoint></xsl:if>
-                <xsl:if test="string-length(BulletPoint2) &gt; 0"> <BulletPoint><xsl:value-of select="BulletPoint2"/></BulletPoint></xsl:if>
-                <xsl:if test="string-length(BulletPoint3) &gt; 0"> <BulletPoint><xsl:value-of select="BulletPoint3"/></BulletPoint></xsl:if>
-                <xsl:if test="string-length(BulletPoint4) &gt; 0"> <BulletPoint><xsl:value-of select="BulletPoint4"/></BulletPoint></xsl:if>
-                <xsl:if test="string-length(BulletPoint5) &gt; 0"> <BulletPoint><xsl:value-of select="BulletPoint5"/></BulletPoint></xsl:if>
-                
-                <xsl:if test="string-length(PackageWeight_in_gr) &gt; 0">
-                  <PackageWeight unitOfMeasure="GR">  
-                    <xsl:value-of select="PackageWeight_in_gr"/>
-                  </PackageWeight>
-                </xsl:if>
-                
-                <xsl:if test="string-length(ShippingWeight_in_gr) &gt; 0">
-                  <ShippingWeight unitOfMeasure="GR">  
-                    <xsl:value-of select="ShippingWeight_in_gr"/>
-                  </ShippingWeight>
-                </xsl:if>
-                
-                <xsl:if test="string-length(Manufacturer) &gt; 0"><Manufacturer><xsl:value-of select="Manufacturer"/></Manufacturer></xsl:if>
-                <xsl:if test="string-length(MfrPartNumber) &gt; 0"> <MfrPartNumber><xsl:value-of select="MfrPartNumber"/></MfrPartNumber></xsl:if>
-                <xsl:if test="string-length(SearchTerms) &gt; 0"> <SearchTerms><xsl:value-of select="SearchTerms"/></SearchTerms></xsl:if>
-                
-                <xsl:if test="string-length(TargetAudience) &gt; 0"> <TargetAudience><xsl:value-of select="TargetAudience"/></TargetAudience></xsl:if>
-                <xsl:if test="string-length(IsGiftWrapAvailable) &gt; 0"> <IsGiftWrapAvailable><xsl:value-of select="IsGiftWrapAvailable"/></IsGiftWrapAvailable></xsl:if>
-                <xsl:if test="string-length(IsGiftMessageAvailable) &gt; 0"> <IsGiftMessageAvailable><xsl:value-of select="IsGiftMessageAvailable"/></IsGiftMessageAvailable></xsl:if>
-                <xsl:if test="string-length(RecommendedBrowseNode) &gt; 0"><RecommendedBrowseNode><xsl:value-of select="RecommendedBrowseNode"/></RecommendedBrowseNode></xsl:if>
-                <xsl:if test="string-length(MerchantShippingGroupName) &gt; 0"><MerchantShippingGroupName><xsl:value-of select="MerchantShippingGroupName"/></MerchantShippingGroupName></xsl:if> 
-                
-                <xsl:if test="string-length(AreBatteriesRequired) &gt; 0">
-                  <Battery>
-                    <AreBatteriesRequired><xsl:value-of select="AreBatteriesRequired"/></AreBatteriesRequired>
-                  </Battery>
-                </xsl:if>
-                
-                <xsl:if test="string-length(SupplierDeclaredDGHZRegulation) &gt; 0">
-                  <SupplierDeclaredDGHZRegulation><xsl:value-of select="SupplierDeclaredDGHZRegulation"/></SupplierDeclaredDGHZRegulation>
-                </xsl:if>
-                
-              </DescriptionData>
-              -->
-              <!--    ##################################################################### DEBUT PRODUCT DATA #####################################################################   -->
+              <!-- Description Data -->
               
+              <xsl:call-template name="DescriptionData_Template">
+                
+              </xsl:call-template>
+              
+              <!-- Product Data -->
               <xsl:choose>
                 
                 <!--    ######################################### CAS LUMIERE #########################################   -->
@@ -254,13 +166,13 @@
               </xsl:choose>
             </xsl:if>
             
-            
+            <!-- Description Data ASIN -->
             
             <xsl:if test="string-length(ASIN) != 0 and Details_on_if_ASIN = 'False'">
-              <DescriptionData>
-                <xsl:if test="string-length(Title) &gt; 0"><Title><xsl:value-of select="Title"/></Title></xsl:if>
-                <xsl:if test="string-length(CountryOfOrigin) &gt; 0"><CountryOfOrigin><xsl:value-of select="CountryOfOrigin"/></CountryOfOrigin></xsl:if>
-              </DescriptionData>
+              
+              <xsl:call-template name="DescriptionDataASIN_Template">
+              </xsl:call-template>
+              
             </xsl:if> 
             
           </Product>
