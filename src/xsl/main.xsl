@@ -12,17 +12,13 @@
     <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
       
       <!-- Header -->
-      <xsl:call-template name="Header">       
-      </xsl:call-template>
+      <xsl:call-template name="Header"/>
       
       <xsl:for-each select="catalogue/product">
         
-        
-        <!-- Message -->
-        
         <Message>
           
-          
+          <!-- Message Info -->
           <xsl:call-template name="message_Info">
             <xsl:with-param name="Delete_product" select="'Delete_product'"/>
             <xsl:with-param name="Partial_update" select="'Partial_update'"/>
@@ -31,7 +27,7 @@
           
           <Product>
             
-            
+            <!-- Product Info Fields -->
             <xsl:call-template name="amzon_generic_fields">
               <xsl:with-param name="sku" select="'SKU'"/>
               <xsl:with-param name="asin" select="'ASIN'"/>
@@ -42,30 +38,16 @@
             
             
             <xsl:if test="(string-length(ASIN) != 0 and Details_on_if_ASIN = 'True') or (string-length(ASIN) = 0)">
-              <!-- Condition
-                   <xsl:if test="string-length(Condition) &gt; 0"> 
-                   <Condition>
-                   
-                   <ConditionType>
-                   <xsl:value-of select="Condition"/>
-                   </ConditionType>
-                   
-                   <xsl:if test="string-length(ConditionNote) &gt; 0">
-                   <ConditionNote>
-                   <xsl:value-of select="ConditionNote"/>
-                   </ConditionNote>
-                   </xsl:if>
-                   
-                   </Condition>
-                   </xsl:if>
-              -->
-              <!-- Description Data -->
               
-              <xsl:call-template name="DescriptionData_Template">
-                
+              <!-- Product Condition Fields -->
+              <xsl:call-template name="product_condition">
+                <xsl:with-param name="Condition" select="'Condition'"/>
+                <xsl:with-param name="ConditionNote" select="'ConditionNote'"/>
               </xsl:call-template>
+
+              <!-- Description Data -->
+              <xsl:call-template name="DescriptionData_Template"/>
               
-              <!-- Product Data -->
               <xsl:choose>
                 
                 <!--    ######################################### CAS LUMIERE #########################################   -->
@@ -170,8 +152,7 @@
             
             <xsl:if test="string-length(ASIN) != 0 and Details_on_if_ASIN = 'False'">
               
-              <xsl:call-template name="DescriptionDataASIN_Template">
-              </xsl:call-template>
+              <xsl:call-template name="DescriptionDataASIN_Template"/>
               
             </xsl:if> 
             

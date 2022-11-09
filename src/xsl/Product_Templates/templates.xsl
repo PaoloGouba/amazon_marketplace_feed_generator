@@ -20,8 +20,8 @@
     
     <!-- Message info -->
     <xsl:template name="message_Info">
-    <xsl:param name="Delete_product"/>
-    <xsl:param name="Partial_update"/>
+        <xsl:param name="Delete_product"/>
+        <xsl:param name="Partial_update"/>
         <MessageID><xsl:number value="position()" format="1" /></MessageID>
         <xsl:choose>
             <xsl:when test="./*[name() = $Delete_product] = 'True'">
@@ -37,15 +37,34 @@
     </xsl:template>
     
     
+    <!-- Condition -->
+    <xsl:template name="product_condition">
+        <xsl:param name="Condition"/>
+        <xsl:param name="ConditionNote"/>
+        <xsl:if test="string-length(./*[name() = $Condition]) &gt; 0"> 
+            <Condition>
+                <ConditionType>
+                    <xsl:value-of select="./*[name() = $Condition]"/>
+                </ConditionType>
+                
+                <xsl:if test="string-length(./*[name() = $ConditionNote]) &gt; 0">
+                    <ConditionNote>
+                        <xsl:value-of select="./*[name() = $ConditionNote]"/>
+                    </ConditionNote>
+                </xsl:if>
+            </Condition>
+        </xsl:if>
+    </xsl:template>
+    
     <!-- Product.xsd : Identification -->
     <xsl:template name="amzon_generic_fields">
-    <xsl:param name="sku"/>  
-    <xsl:param name="parentage"/>
-    <xsl:param name="ean"/>
-    <xsl:param name="isbn"/>
-    <xsl:param name="asin"/>
-
-
+        <xsl:param name="sku"/>  
+        <xsl:param name="parentage"/>
+        <xsl:param name="ean"/>
+        <xsl:param name="isbn"/>
+        <xsl:param name="asin"/>
+        
+        
         
         <SKU><xsl:value-of select="./*[name() = $sku]"/></SKU>
         

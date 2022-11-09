@@ -4,7 +4,7 @@
     <xsl:output method="xml" indent="yes"/>
     
     <!-- product_type_selector -->
-    <xsl:template name="candle_product_type_fields">
+    <xsl:template name="ProductType_Candle">
         
         <xsl:call-template name="simple_field"><xsl:with-param name="input_node_name" select="'AcceptedVoltageFrequency'"/><xsl:with-param name="output_node_name" as="" select="'AcceptedVoltageFrequency'"/> </xsl:call-template>
         
