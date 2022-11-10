@@ -6,11 +6,14 @@
   <xsl:output method="xml" indent="yes"/>
   <xsl:param name="ExternalMerchantId" select="'ExternalMerchantId[Required]'"/>
   
+  
+  
   <xsl:template match="/product">
     
     
     
     <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
+      
       
       <!-- Header -->
       <xsl:call-template name="Header">

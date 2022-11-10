@@ -19,10 +19,13 @@
     <xsl:template name="Lightin_ProductType_Gateway">
         <xsl:param name="case_xsl" />
         <xsl:param name="cat_2" />
+
         <xsl:choose>
+
             <xsl:when test="./*[name()= $case_xsl] = 'lumiere' and ./*[name()= $cat_2] = 'Ampoules' "> <!-- here we can create an array of all categories linked to this product type -->
                 <xsl:call-template name="ProductType_Candle"/>
             </xsl:when>
+            
         </xsl:choose>
         
     </xsl:template>
