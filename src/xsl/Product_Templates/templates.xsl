@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-    <xsl:import href="../ProductData/universes.xsl"/>
     <xsl:output method="xml" indent="yes"/>
-    <xsl:param name="ExternalMerchantId" select="'ExternalMerchantId[Required]'"/>
     
     
     
     <!-- Header -->
     <xsl:template name="Header">
+    <xsl:param name="ExternalMerchantId"/>
         <Header>
             <DocumentVersion>1.01</DocumentVersion>
             <MerchantIdentifier>
-                <xsl:value-of select="$ExternalMerchantId"/>
+                <xsl:value-of select="./*[name() = $ExternalMerchantId]"/>
             </MerchantIdentifier>
         </Header>
         <MessageType>Product</MessageType>
