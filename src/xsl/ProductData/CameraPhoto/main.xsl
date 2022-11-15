@@ -6,11 +6,17 @@
     
     
     <xsl:template name="CameraPhoto_ProductType_Gateway">
-        <xsl:param name="case_xsl" />
+        <xsl:param name="case_xsl"/>
         <xsl:param name="cat_2" />
+        <xsl:comment>
+            CameraPhoto_ProductType_Gateway
+        </xsl:comment>
         <xsl:choose>
-            <xsl:when test="./*[name()= $case_xsl] = 'photo' and ./*[name()= $cat_2] = 'photo'"> <!-- here we can create an array of all categories linked to this product type -->
-                <xsl:call-template name="ProductType_Candle"/>
+            <xsl:when test="./*[name()= $case_xsl] = 'photo'"> <!-- here we can create an array of all categories linked to this product type -->
+                <xsl:comment>
+                    RUN ProductType_FilmCamera
+                </xsl:comment>
+                <xsl:call-template name="ProductType_FilmCamera"/>
             </xsl:when>
         </xsl:choose>
         

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-  <xsl:import href="Product_Templates/templates.xsl"/>
+<xsl:import href="Product_Templates/templates.xsl"/>
   <xsl:import href="Product_Templates/DescriptionData.xsl"/>
   <xsl:import href="ProductData/product_gateway.xsl"/>
   <xsl:output method="xml" indent="yes"/>
@@ -8,7 +8,7 @@
   
   
   
-  <xsl:template match="/product">
+  <xsl:template match="product">
     
     
     
@@ -20,7 +20,7 @@
         <xsl:with-param name="ExternalMerchantId" select="$ExternalMerchantId"/>
       </xsl:call-template>
       
-      <xsl:for-each select="catalogue/product">
+     
         
         <Message>
           
@@ -78,7 +78,7 @@
         </Message>
         
         
-      </xsl:for-each>
+     
       
       
     </AmazonEnvelope>
