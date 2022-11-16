@@ -8,6 +8,7 @@
   
   
   
+  
   <xsl:template match="product">
     
     
@@ -57,6 +58,8 @@
               <!-- Product Data -->
               <xsl:call-template name="product_univers_gateway">
                 <xsl:with-param name="univers" select="'univers'"/>
+                <xsl:with-param name="case_xsl" select="'case_xsl'"/>
+                <xsl:with-param name="cat_2" select="'cat_2'"/>
               </xsl:call-template>
             </xsl:if>
 

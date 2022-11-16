@@ -11,14 +11,15 @@
         <xsl:comment>
             CameraPhoto_ProductType_Gateway
         </xsl:comment>
-        <xsl:choose>
-            <xsl:when test="./*[name()= $case_xsl] = 'photo'"> <!-- here we can create an array of all categories linked to this product type -->
+
+       
+            <xsl:if test="$case_xsl = 'photo'"> <!-- here we can create an array of all categories linked to this product type -->
                 <xsl:comment>
                     RUN ProductType_FilmCamera
                 </xsl:comment>
                 <xsl:call-template name="ProductType_FilmCamera"/>
-            </xsl:when>
-        </xsl:choose>
+            </xsl:if>
+       
         
     </xsl:template>
     

@@ -31,7 +31,9 @@
     <xsl:template name="product_univers_gateway">
         
         
-        <xsl:param name="univers" select="'univers'"/>
+        <xsl:param name="univers"/>
+        <xsl:param name="case_xsl"/>
+        <xsl:param name="cat_2"/>
         
         <xsl:choose>
             
@@ -40,8 +42,8 @@
                     Lighting
                 </xsl:comment>
                 <xsl:call-template name="Lightin_ProductType_Gateway">
-                    <xsl:with-param name="case_xsl" select="'case_xsl'"/>
-                    <xsl:with-param name="cat_2" as="" select="'cat_2'"/>
+                    <xsl:with-param name="case_xsl" select="./*[name()=$case_xsl]"/>
+                    <xsl:with-param name="cat_2" select="./*[name()=$cat_2]"/>
                 </xsl:call-template>
             </xsl:when>
             
@@ -49,9 +51,10 @@
                 <xsl:comment>
                     CameraPhoto
                 </xsl:comment>
+
                 <xsl:call-template name="CameraPhoto_ProductType_Gateway">
-               
-                    <xsl:with-param name="cat_2" as="" select="'cat_2'"/>
+                    <xsl:with-param name="case_xsl" select="./*[name()=$case_xsl]"/>
+                    <xsl:with-param name="cat_2" select="./*[name()=$cat_2]"/>
                 </xsl:call-template>
             </xsl:when>
             
