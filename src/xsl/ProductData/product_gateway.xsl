@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-    <xsl:import href="Lighting/main.xsl"/>
+    <xsl:import href="Lighting/Lighting.xsl"/>
     <xsl:import href="CameraPhoto/main.xsl"/>
     <xsl:output method="xml" indent="yes"/>
     
@@ -11,10 +11,10 @@
          which univers template run depending on UNIVERS parameter setted in channel by default.
          
          
-         How manage new universes : 
+         How add new universes : 
          
-         1. Create a folder named with univers name, into this folder 
-         create a main.xsl file and import it in this module
+         1. Go into ProductData folder and create a folder named with univers name, into this folder 
+         create a 'main.xsl' file and import it in this module.
          
          
          2. Go into your new univers folder, then into main.xsl and create a template 
