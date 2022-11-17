@@ -8,18 +8,25 @@
     <xsl:template name="CameraPhoto_ProductType_Gateway">
         <xsl:param name="case_xsl"/>
         <xsl:param name="cat_2" />
+        <!-- Film Camera ProductType -->
+        <xsl:variable name="Photo" select="'photo'"/>
+
+
         <xsl:comment>
             CameraPhoto_ProductType_Gateway
         </xsl:comment>
-
-       
-            <xsl:if test="$case_xsl = 'photo'"> <!-- here we can create an array of all categories linked to this product type -->
+        <case><xsl:value-of select="$case_xsl"/></case>
+        <foto><xsl:value-of select="$Photo"/></foto>
+        
+        <xsl:choose>
+            <xsl:when test="$case_xsl = case_xsl">
                 <xsl:comment>
-                    RUN ProductType_FilmCamera
+                    ProductType_FilmCamera
                 </xsl:comment>
                 <xsl:call-template name="ProductType_FilmCamera"/>
-            </xsl:if>
-       
+            </xsl:when>
+        </xsl:choose>
+
         
     </xsl:template>
     

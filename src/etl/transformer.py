@@ -12,9 +12,10 @@ xslt = ET.parse(xsl_filename)
 transform = ET.XSLT(xslt)
 newdom = transform(dom)
 
-print(ET.tostring(newdom, pretty_print=True))
+#print(ET.tostring(newdom, pretty_print=True))
 
-print(newdom)
+#print(newdom)
+print('Transformation OK !')
 
 result = str(newdom)
 
@@ -36,3 +37,6 @@ result = str(newdom)
 
 with open('result.xml','w',encoding='utf-8') as f :
     f.write(str(result))
+    
+    
+print('Result is available !')    
