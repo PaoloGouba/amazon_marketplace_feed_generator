@@ -17,7 +17,6 @@
     
     
     <xsl:template name="Lightin_ProductType_Gateway">
-        <xsl:param name="case_xsl" />
         <xsl:param name="cat_2" />
 
         <xsl:choose>

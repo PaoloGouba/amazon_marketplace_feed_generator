@@ -38,9 +38,7 @@
         <xsl:choose>
             
             <xsl:when test="./*[name()=$univers] = 'Lighting' ">
-                <xsl:comment>
-                    Lighting
-                </xsl:comment>
+
                 <xsl:call-template name="Lightin_ProductType_Gateway">
                     <xsl:with-param name="case_xsl" select="./*[name()=$case_xsl]"/>
                     <xsl:with-param name="cat_2" select="./*[name()=$cat_2]"/>

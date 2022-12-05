@@ -47,3 +47,56 @@ In order to keep the list of product types updated, from this program you can ru
 
 
 
+# Transformer Specs
+
+## Context
+
+Amazon SP API need a specific XML strucutre to send products. You can see Amazon specifications [here.](https://images-na.ssl-images-amazon.com/images/G/01/rainier/help/XML_Documentation_Intl.pdf)
+
+
+The XML structure need by Amazon can be rappresented by this : 
+
+Catalog
+- Message <>
+  - Header <>
+  - Message info <>
+  - Product <>
+    - ID Data (List Of fields, generic for all product types)
+    - Description Data <>
+    - ProductData <>
+      - ProductType <>
+        - Product Type Fields
+    - ID Data (List Of fields, generic for all product types)
+
+
+
+## XSL Transformer structure 
+
+## MAIN file
+
+- Import common templates, DescriptionData template and ProductData Gataway
+- Create Structre
+- Call templates
+
+
+## Common templates 
+
+
+## DescriptionData Template
+
+- Description Data
+- Description Data ASIN
+
+
+## ProductData Module
+
+The main fonction of this module, is to decide which ProductData use. 
+
+Each univers has more XSL modules. The main XSL of a unvers mudule, will choose the product type, then will apply the right XSLT depending of the product type
+
+NB: in this version we manage booth old an new version. 
+
+
+
+
+
