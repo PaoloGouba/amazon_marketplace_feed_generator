@@ -1,20 +1,22 @@
-"""
 
-Allowed formats : XML,CSV
-
-Functionalities 
-- store data in memory
-- check and drop duplicated
-- from CSV to XML
-- 
-
-"""
 import xsl
 import lxml.etree as t
 
 
 
 class Extractor():
+    """
+
+    Extractor : 
+
+    Description :
+    
+        XML or CSV Data Extractor 
+
+        - check and drop duplicated
+        - if CSV, from CSV to XML
+
+    """
     def __init__(self):
         return
     
@@ -24,6 +26,9 @@ class Extractor():
         feed = t.parse(xml_feed)
               
         return 
+    
+    def extract_data():
+        return print('Extracting Data')
     
     
     def extract_xsl(xsl_input):
